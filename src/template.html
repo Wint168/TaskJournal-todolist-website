@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskJournal</title>
+</head>
+<body>
+    <h1 class="title">Task Journal</h1>
+    <div class="cloud">
+        <button class="cloud-btn">+ Add new task</button>
+    </div>
+
+    <form class="task-form hidden">
+
+    <label for="task-title">Title:</label>
+    <input type="text" class="task-title" placeholder="Task title" required />
+
+    <label for="task-description">Description:</label>
+    <textarea class="task-desc" placeholder="Task details"></textarea>
+
+    <!-- Due date -->
+    <label for="due-date">Due Date:</label>
+    <input type="date" class="due-date" required />
+
+    <!-- Priority selector -->
+    <div class="priority">
+    <div class="priority-label">Priority:</div>
+    <div class="priority-options">
+        <label>
+            <input type="radio" name="priority" value="High" required /> High
+        </label>
+        <label>
+            <input type="radio" name="priority" value="Medium" /> Medium
+        </label>
+        <label>
+            <input type="radio" name="priority" value="Low" /> Low
+        </label>
+    </div>
+    </div>
+
+    <div class="form-buttons">
+        <button type="submit" class="submit-btn">Add</button>
+        <button type="button" class="cancel-btn">Cancel</button>
+    </div>
+</form>
+<ul class="task-list"></ul>
+</body>
+
+</html>

@@ -1,0 +1,262 @@
+body {
+  background-image: url('background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;        /* keep image covering entire screen */
+  background-position: center;
+  background-attachment: fixed; /* optional: keeps background sharp when scrolling */
+  
+}
+
+@font-face {
+  font-family: 'Great Vibes';
+  src: url('GreatVibes-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Shawdow';
+  src: url('ShadowsIntoLight-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+.title{
+    font-family: 'Great Vibes';
+    text-align: center;
+    color: black;
+    font-size: 80px;
+    top: 0;
+}
+
+.cloud {
+    position: absolute;
+    right: 900px;   /* distance from right edge */
+    top: 130px;
+    height: 100px; /* control the cloud size */
+    aspect-ratio: 1.8;
+    --g: radial-gradient(50% 50%, #000 98%, #0000) no-repeat;
+    mask: var(--g) 100% 100%/30% 60%, 
+          var(--g) 70% 0/50% 100%, 
+          var(--g) 0 100%/36% 68%, 
+          var(--g) 27% 18%/26% 40%, 
+          linear-gradient(#000 0 0) bottom/67% 58% no-repeat;
+    background: #ac7ad8; /* cloud color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    
+}
+
+/* button inside the cloud */
+.cloud-btn {
+    font-family: 'Shawdow';
+    background: transparent;
+    color: black;
+    font-size: 22px;
+    font-weight: bold;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cloud-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.3);
+}
+
+/* Form styling */
+.task-form {
+    font-family: 'Shawdow';
+    font-size: 22px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #f5effa;
+    border: 2px solid #c390ef;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 400px;
+    z-index: 100;
+}
+
+.task-form input,
+.task-form textarea {
+    background-color: #f1e6fc;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #cccccc;
+}
+
+/* 2 buttons add and cancel */
+.task-form .form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.task-form button {
+    font-family: 'Shawdow';
+    padding: 8px 15px;
+    font-size: 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.task-form button.submit-btn{
+    background-color: #7a4da7;
+    color: white;
+}
+
+.task-form button.cancel-btn {
+    background-color: #ccc;
+}
+.task-form button:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.3);
+}
+
+
+.hidden {
+    display: none;
+}
+
+
+.priority {
+    display: flex;
+    flex-direction: column; /* label on top, options below */
+    gap: 5px; /* space between label and options */
+}
+
+.priority-options {
+    display: flex; /* put options in one line */
+    gap: 15px; /* space between radio buttons */
+}
+
+.priority-options input[type="radio"] {
+    margin-right: 5px; /* space between radio button and text */
+    accent-color: rgb(179, 108, 199); /* correct syntax */
+    transform: scale(1.5); 
+}
+
+.task-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 120px auto;
+    width: 550px;
+    height: 300px;
+}
+
+/* Each task card */
+.task-list li {
+    background-color: #d1adf0;
+    margin-bottom: 20px;
+    padding: 25px;
+    border-radius: 120px; /* much rounder corners */
+    border: 2px solid #7205b1;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* ✅ center horizontally */
+    text-align: center;      /* ✅ center text */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover effect for a cozy pop */
+.task-list li:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* Completed tasks */
+.task-list li.completed {
+    text-decoration: line-through;
+    color: gray;
+    opacity: 0.7;
+}
+
+
+.task-title {
+    font-family: 'Great Vibes';
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration:underline;
+}
+
+.task-info {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    font-family: 'Shawdow';
+    font-size: 20px;
+}
+
+.task-desc {
+    font-size: 20px;
+    font-family: 'Shawdow';
+    color: #333;
+}
+
+.task-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.task-content {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.delete-btn {
+    background-color: transparent;
+    border: 2px dotted #7205b1;
+    border-radius: 50%;   
+    font-size: 25px;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+    margin-left: 15px;
+}
+
+.delete-btn:hover {
+    transform: scale(1.2);
+}
+/* Tooltip */
+.delete-btn::after {
+    content: "Click to delete task";
+    position: absolute;
+    bottom: 120%; /* above the button */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #9c54c6;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+/* Show tooltip on hover */
+.delete-btn:hover::after {
+    opacity: 1;
+}
+
+
+
+
