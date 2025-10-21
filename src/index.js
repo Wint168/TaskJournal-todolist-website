@@ -1,25 +1,71 @@
 import "./style.css";
-const cloudBtn = document.querySelector(".cloud-btn");
-const taskForm = document.querySelector(".task-form");
-const cancelBtn = document.querySelector(".cancel-btn");
-
-// Show form when clicking cloud button
-cloudBtn.addEventListener("click", () => {
-    taskForm.classList.remove("hidden");
-});
-
-// Hide form when clicking cancel
-cancelBtn.addEventListener("click", () => {
-    taskForm.classList.add("hidden");
-});
-
-taskForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  addTodo();
-});
 
 // === Load existing todos from localStorage ===
 let todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Query DOM elements after DOMContentLoaded
+  const cloudBtn = document.querySelector(".cloud-btn");
+  const taskForm = document.querySelector(".task-form");
+  const cancelBtn = document.querySelector(".cancel-btn");
+  const sortBtn = document.querySelector(".sort-btn");
+  const dropdown = document.querySelector(".dropdown");
+  const sortDate = document.querySelector(".sort-date");
+  const sortPriority = document.querySelector(".sort-priority"); // fixed selector
+
+  // Guard: if essential elements are missing, log and exit early
+  if (!taskForm || !cloudBtn || !document.querySelector(".task-list")) {
+    console.warn("Some required DOM elements are missing. Check your HTML structure.");
+    return;
+  }
+
+  // Show form when clicking cloud button
+  cloudBtn.addEventListener("click", () => {
+    taskForm.classList.remove("hidden");
+  });
+
+  // Hide form when clicking cancel
+  cancelBtn.addEventListener("click", () => {
+    taskForm.classList.add("hidden");
+  });
+
+  taskForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    addTodo();
+  });
+
+  // show sort options when click sort
+  if (sortBtn && dropdown) {
+    sortBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle("show");
+    });
+
+    // close dropdown when clicking outside
+    window.addEventListener("click", (e) => {
+      if (!e.target.matches(".sort-btn")) dropdown.classList.remove("show");
+    });
+  }
+
+  if (sortDate) {
+    sortDate.addEventListener("click", (e) => {
+      e.preventDefault();
+      sortbydate();
+    });
+  }
+
+  if (sortPriority) {
+    sortPriority.addEventListener("click", (e) => {
+      e.preventDefault();
+      sortbyPriority();
+    });
+  }
+
+  // initial render after DOM ready
+  showTodos();
+}); // end DOMContentLoaded
+
+
 
 function addTodo() {
   const title = document.querySelector(".task-title").value.trim();
@@ -136,5 +182,29 @@ function removeTodo(id) {
     saveTodos();
     showTodos();
 }
-// === Initial render on page load ===
-showTodos();
+
+// === Sort by Date (exclude completed) ===
+function sortbydate() {
+  const incomplete = todos.filter(t => !t.completed);
+  const complete = todos.filter(t => t.completed);
+
+  incomplete.sort((a, b) => new Date(a.duedate) - new Date(b.duedate));
+
+  todos = [...incomplete, ...complete]; // incomplete first, then completed
+  saveTodos();
+  showTodos();
+}
+
+// === Sort by Priority (exclude completed) ===
+function sortbyPriority() {
+  const incomplete = todos.filter(t => !t.completed);
+  const complete = todos.filter(t => t.completed);
+
+  const priorityOrder = { High: 1, Medium: 2, Low: 3 };
+
+  incomplete.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+
+  todos = [...incomplete, ...complete]; // incomplete first, then completed
+  saveTodos();
+  showTodos();
+}

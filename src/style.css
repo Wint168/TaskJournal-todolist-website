@@ -22,13 +22,11 @@ body {
 }
 
 
-
 .title{
     font-family: 'Great Vibes';
     text-align: center;
     color: black;
     font-size: 80px;
-    top: 0;
 }
 
 .cloud {
@@ -51,10 +49,32 @@ body {
     
 }
 
+.cloudlist{
+    position: absolute;
+    right: 460px;   /* distance from right edge */
+    top: 130px;
+    height: 100px; /* control the cloud size */
+    aspect-ratio: 1.8;
+    --g: radial-gradient(50% 50%, #000 98%, #0000) no-repeat;
+    mask: var(--g) 100% 100%/30% 60%, 
+          var(--g) 70% 0/50% 100%, 
+          var(--g) 0 100%/36% 68%, 
+          var(--g) 27% 18%/26% 40%, 
+          linear-gradient(#000 0 0) bottom/67% 58% no-repeat;
+    background: #ac7ad8; /* cloud color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    
+}
+
 /* button inside the cloud */
-.cloud-btn {
+.cloud-btn,
+.sort-btn,
+.dropdown button{
     font-family: 'Shawdow';
-    background: transparent;
+    background: #ac7ad8;
     color: black;
     font-size: 22px;
     font-weight: bold;
@@ -65,11 +85,25 @@ body {
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.cloud-btn:hover {
+.cloud-btn:hover,
+.sort-btn:hover,
+.dropdown button:hover{
     transform: translateY(-3px);
     box-shadow: 0 8px 12px rgba(0,0,0,0.3);
 }
 
+/* Dropdown outside cloud */
+.dropdown {
+    display: none;
+    position: absolute; /* important to escape cloud's flex */
+    top: 250px;  /* adjust below cloud */
+    right: 500px; /* align with cloud */
+    flex-direction: column;
+}
+
+.dropdown.show {
+    display: flex;
+}
 /* Form styling */
 .task-form {
     font-family: 'Shawdow';
@@ -94,7 +128,7 @@ body {
 .task-form textarea {
     background-color: #f1e6fc;
     padding: 10px;
-    font-size: 16px;
+    font-size: 25px;
     border-radius: 8px;
     border: 1px solid #cccccc;
 }
@@ -154,7 +188,7 @@ body {
 .task-list {
     list-style-type: none;
     padding: 0;
-    margin: 120px auto;
+    margin: 200px auto;
     width: 550px;
     height: 300px;
 }
