@@ -31,7 +31,6 @@ body {
 
 .cloud {
     position: absolute;
-    right: 900px;   /* distance from right edge */
     top: 130px;
     height: 100px; /* control the cloud size */
     aspect-ratio: 1.8;
@@ -51,7 +50,7 @@ body {
 
 .cloudlist{
     position: absolute;
-    right: 460px;   /* distance from right edge */
+    left: 600px;   /* distance from left edge */
     top: 130px;
     height: 100px; /* control the cloud size */
     aspect-ratio: 1.8;
@@ -97,7 +96,7 @@ body {
     display: none;
     position: absolute; /* important to escape cloud's flex */
     top: 250px;  /* adjust below cloud */
-    right: 500px; /* align with cloud */
+    left: 650px; /* align with cloud */
     flex-direction: column;
 }
 
@@ -187,10 +186,11 @@ body {
 
 .task-list {
     list-style-type: none;
-    padding: 0;
-    margin: 200px auto;
     width: 550px;
     height: 300px;
+    position: absolute; 
+    top: 250px;
+    left: 70px;
 }
 
 /* Each task card */
@@ -220,7 +220,6 @@ body {
     color: gray;
     opacity: 0.7;
 }
-
 
 .task-title {
     font-family: 'Great Vibes';
@@ -291,6 +290,74 @@ body {
     opacity: 1;
 }
 
+/* Calendar container placement and style */
+.calendar-container {
+  position: absolute;
+  top: 130px;
+  right: 30px;   /* Adjust as needed to fit next to cloud buttons */
+  width: 650px;
+  height: 700px;
+  background: #d1adf0; /* soft pastel background */
+  border: 2px solid #7205b1;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  padding: 10px;
+  overflow: hidden;
+}
+.calendar-container .fc {
+  width: 100%;
+  height: 600px;
+}
 
+/* Make FullCalendar blend with your purple pastel aesthetic */
+.fc {
+  font-family: 'Shawdow', sans-serif;
+  color: #50218a;
+}
 
+.fc-toolbar-title {
+  font-family: 'Great Vibes';
+  font-size: 36px;
+  color: #50218a;
+}
 
+.fc-button {
+  background: #ac7ad8!important;
+  border: none !important;
+  color: white !important;
+  border-radius: 10px !important;
+  font-size: 16px !important;
+  font-weight: bold;
+}
+
+.fc-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 12px rgba(0,0,0,0.3);
+}
+
+.fc-daygrid-day {
+  background-color: #f1e6fc;
+  border: 1px solid #d9c3f0;
+}
+
+.fc-daygrid-day:hover {
+  background-color: #ac7ad8;
+}
+
+/* FullCalendar event styling */
+.fc .fc-todo {
+  font-size: 10px;        /* slightly bigger */
+  padding: 4px 6px;       /* more padding */
+  display: block;
+  white-space: normal;    /* allow wrapping */
+  word-break: break-word; /* break long words if needed */
+}
+
+/* Completed todos */
+.fc .fc-todo-completed {
+  font-size: 10px;
+  padding: 4px 6px;
+  display: block;
+  white-space: normal;
+  word-break: break-word;
+}

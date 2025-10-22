@@ -1,4 +1,6 @@
 import "./style.css";
+import { Calendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
 // === Load existing todos from localStorage ===
 let todos = JSON.parse(localStorage.getItem("todos")) || [];
@@ -11,13 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const sortBtn = document.querySelector(".sort-btn");
   const dropdown = document.querySelector(".dropdown");
   const sortDate = document.querySelector(".sort-date");
-  const sortPriority = document.querySelector(".sort-priority"); // fixed selector
+  const sortPriority = document.querySelector(".sort-priority"); 
 
-  // Guard: if essential elements are missing, log and exit early
-  if (!taskForm || !cloudBtn || !document.querySelector(".task-list")) {
-    console.warn("Some required DOM elements are missing. Check your HTML structure.");
-    return;
-  }
 
   // Show form when clicking cloud button
   cloudBtn.addEventListener("click", () => {
@@ -63,6 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // initial render after DOM ready
   showTodos();
+  renderTodosOnCalendar();
+
 }); // end DOMContentLoaded
 
 
@@ -90,6 +89,8 @@ function addTodo() {
   todos.push(newTodo);
   saveTodos();
   showTodos();
+  renderTodosOnCalendar();
+
 
   // clear form
   document.querySelector(".task-form").reset();
@@ -174,6 +175,8 @@ function toggleComplete(id) {
     );
     saveTodos();
     showTodos();
+    renderTodosOnCalendar();
+
 }
 
 // === Remove todo ===
@@ -181,6 +184,8 @@ function removeTodo(id) {
     todos = todos.filter(todo => todo.id !== id);
     saveTodos();
     showTodos();
+    renderTodosOnCalendar();
+
 }
 
 // === Sort by Date (exclude completed) ===
@@ -207,4 +212,40 @@ function sortbyPriority() {
   todos = [...incomplete, ...complete]; // incomplete first, then completed
   saveTodos();
   showTodos();
+  
+}
+
+function renderTodosOnCalendar() {
+  const calendarEl = document.getElementById('calendar');
+  const calendar = new Calendar(calendarEl, {
+    plugins: [dayGridPlugin],
+    initialView: 'dayGridMonth',
+    height: '100%',
+    contentHeight: 'auto',
+    events: todos.map(todo => ({
+      title: todo.title,
+      start: todo.duedate,
+      allDay: true,
+      extendedProps: { completed: todo.completed } // pass completed status
+    })),
+    eventDidMount: function(info) {
+      // Style completed tasks
+      if (info.event.extendedProps.completed) {
+        info.el.style.backgroundColor = "#ac6ad8";
+        info.el.style.opacity = "0.7";
+
+        // Target inner text element
+        const titleEl = info.el.querySelector(".fc-event-title");
+        if (titleEl) {
+          titleEl.style.color = "black";
+          titleEl.style.textDecoration = "line-through";
+        }
+      } else {
+        info.el.style.backgroundColor = "#ac7ad8";
+        const titleEl = info.el.querySelector(".fc-event-title");
+        if (titleEl) titleEl.style.color = "black";
+      }
+    }
+  });
+  calendar.render();
 }
