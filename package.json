@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack serve --open --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,16 @@
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.19",
-    "@fullcalendar/daygrid": "^6.1.19"
-  }
+    "@fullcalendar/daygrid": "^6.1.19",
+    "@fullcalendar/interaction": "^6.1.19",
+    "express": "^5.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wint168/todolist.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Wint168/todolist/issues"
+  },
+  "homepage": "https://github.com/Wint168/todolist#readme"
 }

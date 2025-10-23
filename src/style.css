@@ -293,16 +293,16 @@ body {
 /* Calendar container placement and style */
 .calendar-container {
   position: absolute;
-  top: 130px;
+  top: 100px;
   right: 30px;   /* Adjust as needed to fit next to cloud buttons */
   width: 650px;
-  height: 700px;
+  height: auto;
   background: #d1adf0; /* soft pastel background */
   border: 2px solid #7205b1;
   border-radius: 20px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
   padding: 10px;
-  overflow: hidden;
+  overflow: visible;
 }
 .calendar-container .fc {
   width: 100%;
@@ -341,7 +341,7 @@ body {
 }
 
 .fc-daygrid-day:hover {
-  background-color: #ac7ad8;
+  background-color: #9668c6;
 }
 
 /* FullCalendar event styling */
@@ -360,4 +360,16 @@ body {
   display: block;
   white-space: normal;
   word-break: break-word;
+}
+
+#calendar-details {
+  margin-top: 30px;
+  padding: 10px;
+  background: #e8d3f4;
+  border-radius: 10px;
+  height: auto;
+  overflow: visible;
+  font-family: 'Shawdow', sans-serif;
+  font-size: 14px;
+  color: #641198;
 }

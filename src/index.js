@@ -1,6 +1,7 @@
 import "./style.css";
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 
 // === Load existing todos from localStorage ===
 let todos = JSON.parse(localStorage.getItem("todos")) || [];
@@ -218,7 +219,7 @@ function sortbyPriority() {
 function renderTodosOnCalendar() {
   const calendarEl = document.getElementById('calendar');
   const calendar = new Calendar(calendarEl, {
-    plugins: [dayGridPlugin],
+    plugins: [dayGridPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
     height: '100%',
     contentHeight: 'auto',
@@ -244,6 +245,27 @@ function renderTodosOnCalendar() {
         info.el.style.backgroundColor = "#ac7ad8";
         const titleEl = info.el.querySelector(".fc-event-title");
         if (titleEl) titleEl.style.color = "black";
+      }
+    },
+
+     dateClick: function(info) {
+      const clickedDate = info.dateStr;
+      const dayTodos = todos.filter(t => t.duedate === clickedDate);
+      const detailsBox = document.getElementById("calendar-details");
+
+      if (dayTodos.length === 0) {
+        detailsBox.innerHTML = `<p>No tasks on ${clickedDate}</p>`;
+      } else {
+        let html = `<h3>Tasks for ${clickedDate}</h3>`;
+        dayTodos.forEach(t => {
+          html += `
+            <p><strong>${t.title}</strong></p>
+            <p>Priority: ${t.priority}</p>
+            <p>${t.description || "(no description)"}</p>
+            <hr>
+          `;
+        });
+        detailsBox.innerHTML = html;
       }
     }
   });
